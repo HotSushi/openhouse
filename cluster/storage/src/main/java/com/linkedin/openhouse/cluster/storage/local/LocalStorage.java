@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
-@Lazy
 @Component
 public class LocalStorage implements Storage {
 
@@ -19,7 +18,7 @@ public class LocalStorage implements Storage {
 
   @Autowired private StorageProperties storageProperties;
 
-  @Autowired private LocalStorageClient localStorageClient;
+  @Autowired @Lazy private LocalStorageClient localStorageClient;
 
   @Override
   public boolean isActive() {

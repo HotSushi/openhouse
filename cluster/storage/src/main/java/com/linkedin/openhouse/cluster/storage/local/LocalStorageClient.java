@@ -1,6 +1,7 @@
 package com.linkedin.openhouse.cluster.storage.local;
 
 import com.linkedin.openhouse.cluster.storage.StorageClient;
+import com.linkedin.openhouse.cluster.storage.StorageType;
 import java.io.IOException;
 import javax.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
@@ -18,7 +19,7 @@ public class LocalStorageClient implements StorageClient<FileSystem> {
 
   @PostConstruct
   private synchronized void init() throws IOException {
-    log.debug("Initialized local storage client.");
+    log.info("Initialized storage client for type: " + StorageType.LOCAL.getValue());
     this.fs = FileSystem.get(new Configuration());
   }
 

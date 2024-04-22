@@ -11,6 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
+/**
+ * The LocalStorage class is an implementation of the Storage interface for local storage. It uses a
+ * LocalStorageClient to interact with the local file system.
+ */
 @Component
 public class LocalStorage implements Storage {
 
@@ -18,8 +22,17 @@ public class LocalStorage implements Storage {
 
   @Autowired private StorageProperties storageProperties;
 
+  // Lazy initialization of the LocalStorageClient
   @Autowired @Lazy private LocalStorageClient localStorageClient;
 
+  /**
+   * Check if the local storage is active.
+   *
+   * <p>The local storage is considered active if the default type is not set or no types are
+   * provided or specific "local" type is provided.
+   *
+   * @return true if the local storage is active, false otherwise
+   */
   @Override
   public boolean isActive() {
     if (storageProperties.getDefaultType() == null) {
@@ -31,6 +44,11 @@ public class LocalStorage implements Storage {
     }
   }
 
+  /**
+   * Get the properties of the local storage.
+   *
+   * @return a copy map of properties of the local storage
+   */
   @Override
   public Map<String, String> getProperties() {
     return Optional.ofNullable(storageProperties.getTypes())

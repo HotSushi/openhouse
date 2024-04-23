@@ -11,6 +11,10 @@ import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+/**
+ * The StorageManager class is responsible for managing the storage types and providing the
+ * appropriate storage implementation based on the configuration.
+ */
 @Component
 public class StorageManager {
 
@@ -20,6 +24,11 @@ public class StorageManager {
 
   @Autowired List<Storage> storagesBeans;
 
+  /**
+   * Validate the storage properties.
+   *
+   * <p>It checks if the default type is set and if the types are provided correctly.
+   */
   @PostConstruct
   public void validateProperties() {
     String clusterYamlError = "Cluster yaml is incorrectly configured: ";
@@ -42,6 +51,11 @@ public class StorageManager {
     }
   }
 
+  /**
+   * Get the default storage.
+   *
+   * @return the default storage
+   */
   public Storage getDefaultStorage() {
     if (storageProperties.getDefaultType() == null) {
       return getStorage(LOCAL);
@@ -49,6 +63,12 @@ public class StorageManager {
     return getStorage(storageType.fromString(storageProperties.getDefaultType()));
   }
 
+  /**
+   * Get the storage based on the storage type.
+   *
+   * @param storageType the storage type
+   * @return the storage
+   */
   public Storage getStorage(StorageType.Type storageType) {
     for (Storage storage : storagesBeans) {
       if (storage.getType().equals(storageType) && storage.isActive()) {

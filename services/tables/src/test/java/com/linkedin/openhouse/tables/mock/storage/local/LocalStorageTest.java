@@ -9,6 +9,7 @@ import com.linkedin.openhouse.cluster.storage.configs.StorageProperties;
 import com.linkedin.openhouse.cluster.storage.local.LocalStorage;
 import com.linkedin.openhouse.cluster.storage.local.LocalStorageClient;
 import java.util.HashMap;
+import org.apache.hadoop.fs.LocalFileSystem;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -78,6 +79,8 @@ public class LocalStorageTest {
 
   @Test
   public void testLocalStorageGetClient() {
-    assertTrue(localStorage.getClient().equals(localStorageClient));
+    LocalFileSystem localFileSystem = new LocalFileSystem();
+    when(localStorageClient.getNativeClient()).thenReturn(localFileSystem);
+    assertTrue(localStorage.getClient().getNativeClient().equals(localFileSystem));
   }
 }

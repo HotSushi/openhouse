@@ -10,6 +10,7 @@ import java.net.URISyntaxException;
 import javax.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.hadoop.fs.FileSystem;
+import org.apache.hadoop.fs.LocalFileSystem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
@@ -71,6 +72,9 @@ public class LocalStorageClient implements StorageClient<FileSystem> {
       uri = new URI(DEFAULT_ENDPOINT + DEFAULT_ROOTPATH);
     }
     this.fs = FileSystem.get(uri, new org.apache.hadoop.conf.Configuration());
+    Preconditions.checkArgument(
+        fs instanceof LocalFileSystem,
+        "Instantiation failed for LocalStorageClient, fileSystem is not a LocalFileSystem");
   }
 
   @Override

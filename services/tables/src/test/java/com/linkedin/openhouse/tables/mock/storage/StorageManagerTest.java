@@ -41,6 +41,15 @@ public class StorageManagerTest {
   }
 
   @Test
+  public void validatePropertiesShouldThrowExceptionWhenDefaultTypeIsNotNullAndTypeIsNotPresent() {
+    when(storageProperties.getDefaultType()).thenReturn(StorageType.HDFS.getValue());
+    when(storageProperties.getTypes())
+        .thenReturn(ImmutableMap.of("valid", new StorageProperties.StorageTypeProperties()));
+
+    assertThrows(IllegalArgumentException.class, () -> storageManager.validateProperties());
+  }
+
+  @Test
   public void validatePropertiesShouldThrowExceptionWhenDefaultTypeIsInvalid() {
     when(storageProperties.getDefaultType()).thenReturn("invalid");
     when(storageProperties.getTypes())

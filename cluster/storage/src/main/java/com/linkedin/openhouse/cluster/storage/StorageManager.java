@@ -27,7 +27,10 @@ public class StorageManager {
   /**
    * Validate the storage properties.
    *
-   * <p>It checks if the default type is set and if the types are provided correctly.
+   * <p>It validates storage properties as follows 1. default-type for storage is not set and
+   * storage types are not provided, ie. LocalStorage is configured **valid** 2. default-type for
+   * storage is set and storage types are provided ,and it contains default-type **valid** all other
+   * configurations are **invalid**
    */
   @PostConstruct
   public void validateProperties() {
@@ -41,6 +44,10 @@ public class StorageManager {
         !(storageProperties.getDefaultType() != null
             && (storageProperties.getTypes() == null || storageProperties.getTypes().isEmpty())),
         "no types are provided");
+    Preconditions.checkArgument(
+        !(storageProperties.getDefaultType() != null
+            && !storageProperties.getTypes().containsKey(storageProperties.getDefaultType())),
+        "default-type was not provided in types");
     try {
       Optional.ofNullable(storageProperties.getDefaultType()).ifPresent(storageType::fromString);
       Optional.ofNullable(storageProperties.getTypes())

@@ -32,6 +32,9 @@ public interface Storage {
   /**
    * Get the type of the storage.
    *
+   * <p>Please refer to {@link StorageType} for the list of supported storage types. An example type
+   * of the local storage that can be returned {@link StorageType.Type#LOCAL}.
+   *
    * @return the type of the storage
    */
   StorageType.Type getType();

@@ -13,12 +13,13 @@ import org.springframework.stereotype.Component;
 
 /**
  * The LocalStorage class is an implementation of the Storage interface for local storage. It uses a
- * LocalStorageClient to interact with the local file system.
+ * LocalStorageClient to interact with the local file system. The LocalStorageClient uses an Apache
+ * Hadoop FileSystem to interact with the local file system.
  */
 @Component
 public class LocalStorage implements Storage {
 
-  private static final StorageType.Type TYPE = StorageType.LOCAL;
+  private static final StorageType.Type LOCAL_TYPE = StorageType.LOCAL;
 
   @Autowired private StorageProperties storageProperties;
 
@@ -40,19 +41,19 @@ public class LocalStorage implements Storage {
     } else if (storageProperties.getTypes() == null || storageProperties.getTypes().isEmpty()) {
       return true;
     } else {
-      return storageProperties.getTypes().containsKey(TYPE.getValue());
+      return storageProperties.getTypes().containsKey(LOCAL_TYPE.getValue());
     }
   }
 
   /**
    * Get the properties of the local storage.
    *
-   * @return a copy map of properties of the local storage
+   * @return a copy of map of properties of the local storage
    */
   @Override
   public Map<String, String> getProperties() {
     return Optional.ofNullable(storageProperties.getTypes())
-        .map(types -> types.get(TYPE.getValue()))
+        .map(types -> types.get(LOCAL_TYPE.getValue()))
         .map(StorageProperties.StorageTypeProperties::getParameters)
         .map(HashMap::new)
         .orElseGet(HashMap::new);
@@ -60,7 +61,7 @@ public class LocalStorage implements Storage {
 
   @Override
   public StorageType.Type getType() {
-    return TYPE;
+    return LOCAL_TYPE;
   }
 
   @Override

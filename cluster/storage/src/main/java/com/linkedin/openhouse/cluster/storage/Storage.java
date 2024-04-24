@@ -44,5 +44,5 @@ public interface Storage {
    *
    * @return a client to interact with the storage
    */
-  StorageClient getClient();
+  StorageClient<?> getClient();
 }

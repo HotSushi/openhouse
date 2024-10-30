@@ -41,6 +41,7 @@ dependencies {
     exclude(group: 'io.micrometer', module: 'micrometer-core')
   }
   implementation group: 'com.zaxxer', name: 'HikariCP', version: '4.0.3'
+  implementation 'com.google.guava:guava:31.1-jre'
   compileOnly('org.projectlombok:lombok:' + '1.18.20')
   implementation (project(':cluster:storage')) {
    exclude group: 'org.testcontainers'
@@ -65,7 +66,29 @@ dependencies {
   testRuntimeOnly("org.eclipse.jetty:jetty-server:11.0.2")
 }
 
+jar.enabled=true
+
 shadowJar {
+  dependencies {
+    exclude(dependency('org.apache.hadoop::'))
+    exclude(dependency('software.amazon.awssdk:sts:'))
+    exclude(dependency('software.amazon.awssdk:url-connection-client:'))
+    exclude(dependency('com.fasterxml.jackson.core::'))
+    exclude(dependency('org.apache.commons::'))
+    exclude(dependency('com.google.code.findbugs::'))
+    exclude(dependency('commons-cli::'))
+    exclude(dependency('io-projectreactor::'))
+    exclude(dependency('org.apache.commons::'))
+    exclude(dependency('jakarta.annotation::'))
+    exclude(dependency('org.projectlombok::'))
+    exclude(dependency('com.fasterxml.woodstox::'))
+    exclude(dependency('org.mockito::'))
+    exclude(dependency('org.slf4j::'))
+    exclude(dependency('org.junit.jupiter::'))
+    exclude(dependency('org.junit::'))
+    exclude(dependency('com.github.docker-java::'))
+    exclude(dependency('com.microsoft.azure::'))
+  }
   zip64 = true
   archiveClassifier.set('uber')
 
@@ -176,7 +199,6 @@ shadowJar {
   exclude '**/**/*.so'
 
   mergeServiceFiles()
-
   append 'META-INF/spring.handlers'
   append 'META-INF/spring.schemas'
   append 'META-INF/spring.tooling'

@@ -49,6 +49,8 @@ include ':services:housetables'
 include ':services:jobs'
 include ':services:tables'
 include ':tables-test-fixtures'
+include ':tables-test-fixtures-itest'
+
 
 include ':cluster:configs'
 include ':cluster:storage'

@@ -129,6 +129,9 @@ shadowJar {
     relocate('org.apache.orc', 'openhouse.relocated.org.apache.orc')
     relocate('org.apache.yetus', 'openhouse.relocated.org.apache.yetus')
     relocate('org.apache.zookeeper', 'openhouse.relocated.org.apache.zookeeper')
+    relocate('org.apache.iceberg', 'openhouse.relocated.org.apache.iceberg') {
+        exclude 'org.apache.iceberg.spark.SparkCatalog'
+    }
     relocate('org.aspectj', 'openhouse.relocated.org.aspectj')
     relocate('org.HdrHistogram', 'openhouse.relocated.org.HdrHistogram')
 
@@ -198,6 +201,7 @@ shadowJar {
     exclude("linux/**")
     exclude("contribs/**")
     exclude("microsoft/**")
+    exclude("shaded/**")
   }
 
   exclude '**/public-suffix-list.txt'

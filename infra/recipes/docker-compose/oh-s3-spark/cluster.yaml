@@ -3,7 +3,7 @@ cluster:
   storages:
     default-type: "s3"
     types:
-      s3:  # endpoint + root
+      s3:
         rootpath: "container-a"
         endpoint: "s3://"
         parameters:

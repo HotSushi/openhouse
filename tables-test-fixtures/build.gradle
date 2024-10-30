@@ -190,12 +190,18 @@ shadowJar {
     exclude("contribs/**")
     exclude("microsoft/**")
   }
-
+  
   exclude '**/public-suffix-list.txt'
   exclude 'assets/**/**/**/**/**/**/*.properties'
   exclude '**/*.dll'
   exclude '**/*.ico'
   exclude '**/*.dylib'
+  exclude '**/*.properties'
+  exclude '**/*.xsd'
+  exclude '**/*.txt'
+  exclude '**/*.dtd'
+  exclude '**/*.html'
+  exclude '**/*.springboot'
   exclude '**/**/*.so'
 
   mergeServiceFiles()

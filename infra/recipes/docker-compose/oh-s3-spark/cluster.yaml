@@ -4,10 +4,10 @@ cluster:
     default-type: "s3"
     types:
       s3:
-        rootpath: "openhouse-bucket"
+        rootpath: "container-a"
         endpoint: "s3://"
         parameters:
-          s3.endpoint: "http://minioS3:9000"
+          s3.endpoint: "<BLOB_SERVICE_URL>"
           s3.access-key-id: "admin"
           s3.secret-access-key: "password"
           s3.path-style-access: true
